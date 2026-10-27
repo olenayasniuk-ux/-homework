@@ -1,0 +1,6 @@
+RULES:
+Expression E → T | E+T | E-T
+Term T → U | T*U | T/U
+Unary U → −U | +U ∣ P
+Power P → F^P ∣ F
+Factor F → (E) ∣ Const ∣ var | func(E)

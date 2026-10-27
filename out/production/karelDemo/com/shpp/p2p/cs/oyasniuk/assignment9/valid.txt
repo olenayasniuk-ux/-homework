@@ -1,0 +1,72 @@
+1+a*2  a=2 b=7  5.0
+1+-a*2-a  a=-2 b=7   7.0
+-a+3^8.9/---6+b*b a=-2,78 b=-1.98     -2932.4913275076215
+-28*-+-4^-2-----9/--71.5*-9   -0.6171328671328671
+"2+3*4-6/2"    11.0
+"a+b*c" "a=1.5" "b=2" "c=3"    7.5
+"2^3*2+4"               20.0
+"x*-y+z" "x=4" "y=2" "z=-3"   -11.0
+"a^b/4" "a=5" "b=-1"                 0.05
+"2^-a*b-c/2" "a=-2" "b=0.5" "c=6"         -1.0
+"x*x+y*y-x*y*2" "x=3.5" "y=1.5"           4.0
+"4^0,5*-a/b" "a=-3" "b=1.5"           4.0
+a+b*c^2-d/e*f де a=10, b=2, c=3, d=8, e=-4, f=2.5           33.0
+"-x^3/-y-z^2" "x=-2" "y=4" "z=1,5"           -4.25
+2^2^3   256
+2*-4^2             -32
+
+// щоб серед змінних не було тих яких не має у виразі
+        // перевірка чи користувач ввів всі значення змінних-числа --3 напевно можна, зайві пробіли
+        // і чи взагалі числа ввів 3- не підходить
+
+        //бажано щоб рядок який ввів користувач теж зберігався)
+        // рядок користувача
+        //массив рядка зі змінними
+        //а далі підятавляємо і рахуємо в одному методі, можна туди ж передавати HashMap зі змінними
+        // Значення змінних в HashMap
+
+        // строка с null
+        //знак дії на початку і в кінці, /0, /-0, 0^-5, 0^0
+        // якщо значення букви від'ємне то після підстановки буде --3 - це треба врахувати при підстановці
+        // --3=+3 буде обробляти? обробляє
+        // при підстановці в букву не число
+        //некоректный ввод ^ и *-+/^
+        //некоректный ввод * и *-+/^
+        //некоректный ввод / и *-+/^
+        //некоректный ввод + и */^
+        //некоректный ввод - и */^
+        //некоректный ввод буква буква
+        //некоректный ввод буква число
+        //некоректный ввод число буква
+
+
+         //a = a.toLowerCase();
+
+        //initialExp = initialExp.replace(" ", "");
+        System.out.println(initialExp);
+
+                Set<String> keys = variableValues.keySet();
+                for (String key : keys) {
+                    System.out.printf("%s=%s\n", key, variableValues.get(key));
+                }
+
+
+                private static ArrayList<String> substituteVars(ArrayList<String> decompArray, HashMap<String, String> varValues) {
+                        ArrayList<String> calcArray = new ArrayList<>();
+                        for (String s : decompArray) {
+                            if (s.matches("-?[a-z]")) {
+                                int index=s.indexOf("[a-z]");
+                                String letter= String.valueOf(s.charAt(index));
+                                if (letter.equals("null")){
+                                    throw new IllegalArgumentException(NOT_ALL_VALUE);
+                                }else{
+                                    s=s.replace(letter, varValues.get(letter));
+                                    s = removeExtraPlusMinus(s);
+                                }
+
+                                //s = substituteNumber(s, varValues);
+                            }
+                            calcArray.add(s);
+                        }
+                        return calcArray;
+                    }
